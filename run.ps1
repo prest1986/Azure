@@ -339,12 +339,12 @@ elseif (($FW1Down) -and ($FW2Down))
   Write-Output -InputObject 'Both FW1 and FW2 Down - Manual recovery action required'
   Send-AlertMessage -message "NVA Alert: Both FW1 and FW2 Down - Manual recovery action is required"
 }
-elseif (-not ($FW1Down) -and ($RouteName.NextHopIpAddress -eq $SecondaryInts[$i]))
+elseif (-not ($FW1Down) -and -not ($FW2Down))
 {
   if ($FallBackPreemtion)
   {
     Write-Output -InputObject 'FW1 brought Up - Failing back to FW1'
-    Start-Failback
+    #Start-Failback
   }
   else 
   {
