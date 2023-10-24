@@ -354,4 +354,5 @@ elseif (-not ($FW1Down) -and -not ($FW2Down))
 else
 {
   Write-Output -InputObject 'Both FW1 and FW2 Up - No action is required'
+  Start-Failback
 }
