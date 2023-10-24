@@ -341,7 +341,7 @@ elseif (($FW1Down) -and ($FW2Down))
 }
 elseif (-not ($FW1Down) -and -not ($FW2Down))
 {
-  if ($FallBackPreemtion)
+  if ($FailBack)
   {
     Write-Output -InputObject 'FW1 brought Up - Failing back to FW1'
     #Start-Failback
