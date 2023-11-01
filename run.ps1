@@ -75,7 +75,7 @@ $FailOver = $True              # Trigger to enable fail-over to secondary NVA fi
 $FailBack = $True              # Trigger to enable fail-back to primary NVA firewall is secondary NVA firewall drops when active
 $IntTries = $env:FWTRIES       # Number of Firewall tests to try 
 $IntSleep = $env:FWDELAY       # Delay in seconds between tries
-$FallBackPreemtion = $True     # Trigger to switching back to primary NVA if it was brought up back
+$FallBackPreemtion = $False     # Trigger to switching back to primary NVA if it was brought up back 
 
 #--------------------------------------------------------------------------
 # Code blocks for supporting functions
@@ -341,10 +341,10 @@ elseif (($FW1Down) -and ($FW2Down))
 }
 elseif (-not ($FW1Down) -and -not ($FW2Down))
 {
-  if ($FailBack)
+  if ($FallBackPreemtion)
   {
     Write-Output -InputObject 'FW1 brought Up - Failing back to FW1'
-    #Start-Failback
+    Start-Failback
   }
   else 
   {
@@ -353,6 +353,5 @@ elseif (-not ($FW1Down) -and -not ($FW2Down))
 }
 else
 {
-  Write-Output -InputObject 'Both FW1 and FW2 Up - Failback action is required'
-  Start-Failback
+  Write-Output -InputObject 'Both FW1 and FW2 Up - No action is required'
 }
